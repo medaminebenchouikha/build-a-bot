@@ -3,21 +3,34 @@
     <nav>
       <ul>
         <li class="nav-item">
-          <img src="./assets/build-a-bot-logo.png" alt="logo" class="logo">
-          Build-a-Bot
+          <router-link class="nav-link" :to="{ name: 'Home' }" active-class="home-active">
+            <img src="./assets/build-a-bot-logo.png" alt="logo" class="logo">
+            Build-a-Bot
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'Build' }">
+            Build
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" :to="{ name: 'Search' }">
+            Search
+          </router-link>
         </li>
       </ul>
     </nav>
   </header>
   <main>
     <!-- <HomePage msg="Welcome to Your Vue.js App"/> -->
-    <RobotBuilder />
+    <!-- <RobotBuilder /> -->
+    <router-view />
   </main>
 </template>
 
 <script setup>
 import { provide, ref } from 'vue';
-import RobotBuilder from './build/RobotBuilder.vue';
+// import RobotBuilder from './build/RobotBuilder.vue';
 
 const user = ref({ userName: 'Med' });
 provide('user', user.value);
@@ -74,6 +87,20 @@ header {
 ul {
   padding: 3px;
   display: flex;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.active-link {
+  color: white;
+}
+
+.home-active {
+  color: white;
+  text-shadow: 2px 2px black;
 }
 
 .nav-item {

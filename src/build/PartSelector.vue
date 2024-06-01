@@ -1,7 +1,14 @@
 <template>
   <div class="part" :class="position">
-    <div>User : {{ user.userName }}</div>
-    <img :src="selectedPart.imageUrl" alt="part" />
+    <!-- <div>User : {{ user.userName }}</div> -->
+    <router-link :to="{
+      name: 'Parts', params: {
+        partType: selectedPart.type,
+        id: selectedPart.id
+      }
+    }">
+      <img :src="selectedPart.imageUrl" alt="part" />
+    </router-link>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
     <span class="sale" v-show="selectedPart.onSale">Sale!</span>
@@ -36,11 +43,11 @@ export default {
 <script setup>
 import {
   computed,
-  inject,
+  // inject,
   onUpdated, ref,
 } from 'vue';
 
-const user = inject('user');
+// const user = inject('user');
 const props = defineProps({
   parts: { type: Array, required: true },
   position: {

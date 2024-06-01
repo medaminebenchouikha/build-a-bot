@@ -1,7 +1,28 @@
 {
+  "workbench.editor.wrapTabs": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "explicit"
   },
   "editor.inlayHints.enabled": "off",
+  "prettier.configPath": ".prettierrc.json",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#000",
+    "titleBar.activeBackground": "#26A4C1",
+    "titleBar.inactiveBackground": "#26A4C1",
+    "terminal.background": "#1e2633"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "vitest.commandLine": "npx vitest",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

@@ -11,29 +11,41 @@
   </header>
   <main>
     <!-- <HomePage msg="Welcome to Your Vue.js App"/> -->
-    <ProductSearch/>
+    <RobotBuilder />
   </main>
 </template>
 
-<script>
-// import RobotBuilder from './build/RobotBuilder.vue';
+<script setup>
+import { provide, ref } from 'vue';
+import RobotBuilder from './build/RobotBuilder.vue';
+
+const user = ref({ userName: 'Med' });
+provide('user', user.value);
+</script>
+
+<!-- <script>
+import RobotBuilder from './build/RobotBuilder.vue';
 // import HomePage from './home/HomePage.vue';
-import ProductSearch from './search/ProductSearch.vue';
+// import ProductSearch from './search/ProductSearch.vue';
 
 export default {
   name: 'App',
   components: {
     // HomePage,
-    ProductSearch,
+    RobotBuilder,
+  },
+  data() {
+    return {
+      user: { userName: 'Med' },
+    };
+  },
+  provide() {
+    return { user: this.user };
   },
 };
-</script>
+</script> -->
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
-
 body {
   background: linear-gradient(to bottom, #555, #999);
   background-attachment: fixed
@@ -45,6 +57,12 @@ main {
   background-color: white;
   width: 1200px;
   min-height: 200px;
+}
+</style>
+
+<style scoped>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
 header {

@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="content">
+  <div class="content" v-if="partsStore.parts">
     <div class="preview">
       <CollapsibleSection>
         <template v-slot:collapse>&#x25B2; Hide</template>
@@ -26,21 +26,23 @@
         {{ selectedRobot.head.title }}
         <span class="sale" v-if="selectedRobot.head.onSale">Sale!</span>
       </div>
-      <PartSelector :parts="availableParts.heads" position="top" @partSelected="part => selectedRobot.head = part" />
+      <PartSelector :parts="partsStore.parts.heads" position="top" @partSelected="part => selectedRobot.head = part" />
     </div>
     <div class="middle-row">
-      <PartSelector :parts="availableParts.arms" position="left" @partSelected="part => selectedRobot.leftArm = part" />
-      <PartSelector :parts="availableParts.torsos" position="center"
+      <PartSelector :parts="partsStore.parts.arms" position="left"
+        @partSelected="part => selectedRobot.leftArm = part" />
+      <PartSelector :parts="partsStore.parts.torsos" position="center"
         @partSelected="part => selectedRobot.torso = part" />
-      <PartSelector :parts="availableParts.arms" position="right"
+      <PartSelector :parts="partsStore.parts.arms" position="right"
         @partSelected="part => selectedRobot.rightArm = part" />
     </div>
     <div class="bottom-row">
-      <PartSelector :parts="availableParts.bases" position="bottom" @partSelected="part => selectedRobot.base = part" />
+      <PartSelector :parts="partsStore.parts.bases" position="bottom"
+        @partSelected="part => selectedRobot.base = part" />
     </div>
   </div>
   <div>
-    <h1>Cart</h1>
+    <!--  <h1>Cart</h1>
     <table>
       <thead>
         <tr>
@@ -49,24 +51,35 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(robot, index) in cart" :key="index">
+        <tr v-for="(robot, index) in cartStore.cart" :key="index">
           <td>{{ robot.head.title }}</td>
           <td class="cost">{{ toCurrency(robot.cost) }}</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
+    <!-- <h3>Last robot cost: {{ lastRobotCost }}</h3> -->
   </div>
 </template>
 
 <script setup>
+// import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
-import parts from '../data/parts';
+// import parts from '../data/parts';
 import CollapsibleSection from '../shared/CollapsibleSection.vue';
-import { toCurrency } from '../shared/formatter';
+// import { toCurrency } from '../shared/formatter';
+import { useCartStore } from '../stores/cartStore';
+import { usePartsStore } from '../stores/partsStore';
+
 import PartSelector from './PartSelector.vue';
 
-const availableParts = parts;
-const cart = ref([]);
+const cartStore = useCartStore();
+// const { cart, lastRobotCost } = storeToRefs(useCartStore());
+
+const partsStore = usePartsStore();
+partsStore.getParts();
+
+// const availableParts = parts;
+// const cart = ref([]);
 
 onMounted(() => console.log('onMonted executed!'));
 
@@ -82,7 +95,8 @@ const addToCart = () => {
   const robot = selectedRobot.value;
   const cost =
     robot.head.cost + robot.leftArm.cost + robot.torso.cost + robot.rightArm.cost + robot.base.cost;
-  cart.value.push({ ...robot, cost });
+  cartStore.cart.push({ ...robot, cost });
+  // lastRobotCost.value = cost;
 };
 
 </script>
